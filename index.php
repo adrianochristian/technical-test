@@ -1,6 +1,6 @@
 <?php
 //Main
-if($_POST['number']){
+if(isset($_POST['number'])){
   $number             = $_POST['number'];
   $dividers           = [3,5];
   $result             = calculate($number, $dividers);
@@ -53,7 +53,9 @@ function validator($number){
           </div>
           <button type="submit">Calculate</button>
         </div>
+        <?if(isset($result)){?>
           <h3>Result: <? echo $result ?></h3>
+        <?}?>
       </form>
     </div>
   </body>
