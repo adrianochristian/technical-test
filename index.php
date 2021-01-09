@@ -1,6 +1,39 @@
-<?php 
-session_start();
+<?php
+//Main
+if($_POST['number']){
+  $number             = $_POST['number'];
+  $dividers           = [3,5];
+  $result             = calculate($number, $dividers);
+}
+
+function calculate($number, $dividers){
+    if(!validator($number)){
+      return $result = 'Inserted data is invalid';
+    }
+
+    if($number <= 3){
+      return $result = 'There are no numbers that can be divided by 3 or 5 before the inserted one';
+    }
+
+    $result = 0;
+    for($i = 1; $i < $number; $i++){
+        foreach($dividers as $divider){
+           if($i % $divider == 0){
+              $result += $i;
+            }
+        }
+    }
+
+  return $result;
+}
+
+function validator($number){
+    if(is_numeric($number) && !is_float($number)){
+        return true;
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,7 +45,7 @@ session_start();
   <body>
     <div class="main-block">
       <h1>Technical Test</h1>
-      <form method="POST" action="main.php">
+      <form method="POST" action="index.php">
         <div class="info">
           <div class="info-item">
             <label class="icon" for="number"><i class="las la-calculator"></i></label>
@@ -20,10 +53,9 @@ session_start();
           </div>
           <button type="submit">Calculate</button>
         </div>
-        <?if (!empty($_SESSION["result"])){?>
-          <h3>Resultado: <?echo $_SESSION["result"] ?></h3>
-        <?}?>
+          <h3>Result: <? echo $result ?></h3>
       </form>
     </div>
   </body>
 </html>
+<??>
